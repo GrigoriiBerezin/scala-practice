@@ -4,7 +4,7 @@
 | name  | swapnodes  | convexhull | superdigit | magicsquare | numbinarysearch | passwordcracker | prisontransport | substrsear | validbst |
 |---|---|---|---|---|---|---|---|---|---|
 | ilia  |  + |    |    |    |    |    |    |    |    |
-| nikita m  |   |   |   |   |   |   |   |   |   |
+| nikita m  | +  | +  | +  |   | +  | 25/35  | +  | +  | +  |
 | denis  |   |   |   |   |   |   |   |   |   |
 | ostap  | 0/8  | +  | +  | +  | 0/8  |   | 2/8  | +  | 0/8  |
 | grigoriy  |   |   |   |   |   |   |   |   |   |
