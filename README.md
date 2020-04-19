@@ -9,7 +9,7 @@
 | ostap  | 0/8  | +  | +  | +  | 0/8  |   | 2/8  | +  | 0/8  |
 | grigoriy  |   |   |   |   |   |   |   |   |   |
 | yaroslav  |   |   |   |   |   |   |   |   |   |
-| dmitriy  |   |   |   |   |   |   |   |   |   |
+| dmitriy  |   |   | + |   |   |   |   |   |   |
 | andrey  |   |   |   |   |   |   |   |   |   |
 | nikita l  |   |   |   |   |   |   |   |   |   |
 
