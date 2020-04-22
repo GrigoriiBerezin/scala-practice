@@ -15,36 +15,36 @@ object ReversePolishNotation extends App {
       Seq("*", "/").contains(term)
 
     @scala.annotation.tailrec
-    def getRPN(inputExpr: List[String],
-               operationStack: List[String],
-               stackRPN: List[String]): List[String] =
-      operationStack match {
+    def getRPN(leftTerms: List[String],
+               operations: List[String],
+               result: List[String]): List[String] =
+      operations match {
         case o :: os =>
-          inputExpr match {
+          leftTerms match {
             case x :: xs if isDigit(x) =>
-              getRPN(xs, operationStack, stackRPN :+ x)
+              getRPN(xs, operations, result :+ x)
             case x :: xs if isLastOperation(x) =>
-              if (o != "(") getRPN(inputExpr, os, stackRPN :+ o) // 2
-              else getRPN(xs, x :: operationStack, stackRPN) // 1
+              if (o != "(") getRPN(leftTerms, os, result :+ o) // 2
+              else getRPN(xs, x :: operations, result) // 1
             case x :: xs if isFirstOperation(x) =>
               if (isDigit(o) || isLastOperation(o) || o == "(")
-                getRPN(xs, x :: operationStack, stackRPN) // 1
-              else getRPN(inputExpr, os, stackRPN :+ o) // 2
+                getRPN(xs, x :: operations, result) // 1
+              else getRPN(leftTerms, os, result :+ o) // 2
             case x :: xs if x == "(" =>
-              getRPN(xs, x :: operationStack, stackRPN) // 1
+              getRPN(xs, x :: operations, result) // 1
             case x :: xs if x == ")" =>
-              if (o != "(") getRPN(inputExpr, os, stackRPN :+ o) // 2
-              else getRPN(xs, os, stackRPN) // 3
+              if (o != "(") getRPN(leftTerms, os, result :+ o) // 2
+              else getRPN(xs, os, result) // 3
             case Nil =>
               if (o == "(") throw ExpressionError("Miss close bracket") // 5
-              else getRPN(inputExpr, os, stackRPN :+ o) // 2
+              else getRPN(leftTerms, os, result :+ o) // 2
           }
         case Nil =>
-          inputExpr match {
-            case x :: xs if x == ")" =>
+          leftTerms match {
+            case x :: _ if x == ")" =>
               throw ExpressionError("Wrong open bracket") // 5
-            case x :: xs => getRPN(xs, List(x), stackRPN) // 1
-            case Nil     => stackRPN // 4
+            case x :: xs => getRPN(xs, List(x), result) // 1
+            case Nil     => result // 4
           }
       }
 
@@ -57,12 +57,12 @@ object ReversePolishNotation extends App {
       .foldLeft(List[Double]())(
         (acc, term) =>
           (acc, term) match {
-            case (x :: y :: zs, "+") => (y + x) :: zs
-            case (x :: y :: zs, "-") => (y - x) :: zs
-            case (x :: y :: zs, "*") => (y * x) :: zs
-            case (x :: y :: zs, "/") => (y / x) :: zs
-            case (x :: y :: zs, "^") => Math.pow(y, x) :: zs // todo
-            case (_, _)              => term.toDouble :: acc
+            case (x1 :: x2 :: xs, "+") => (x2 + x1) :: xs
+            case (x1 :: x2 :: xs, "-") => (x2 - x1) :: xs
+            case (x1 :: x2 :: xs, "*") => (x2 * x1) :: xs
+            case (x1 :: x2 :: xs, "/") => (x2 / x1) :: xs
+            case (x1 :: x2 :: xs, "^") => Math.pow(x2, x1) :: xs // todo
+            case (_, _)                => term.toDouble :: acc
         }
       )
       .head
@@ -73,8 +73,8 @@ object ReversePolishNotation extends App {
   def cheatCalc(expr: String, scale: Int = 1): Double =
     (s"echo scale=$scale;$expr" #| "bc").!!.trim.toDouble
 
-  println(calcExpression("2 + 2"))
-  println(calcExpression("25 + 4 * ( 3 - 1 ) / ( 2 * ( 5 + 2 ) )"))
+  println(calcRPN(List("1", "2", "3", "+", "*")))
+  println(calcExpression("3 + -5"))
 }
 
 case class ExpressionError(message: String) extends Error
