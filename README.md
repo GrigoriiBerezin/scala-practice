@@ -1,17 +1,17 @@
 # hackerrank_tasks
 
 # Table of content
-| name  | swapnodes  | convexhull | superdigit | magicsquare | numbinarysearch | passwordcracker | prisontransport | substrsear | validbst |
-|---|---|---|---|---|---|---|---|---|---|
-| ilia  |  + |    |    |    |    |    |    |    |    |
-| nikita m  | +  | +  | +  |   | +  | 25/35  | +  | +  | +  |
-| denis  |   |   |   |   |   |   |   |   |   |
-| ostap  | 0/8  | +  | +  | +  | 0/8  |   | 2/8  | +  | 0/8  |
-| grigoriy  |   |   |   |   |   |   |   |   |   |
-| yaroslav  |   |   |   |   |   |   |   |   |   |
-| dmitriy  |   | + |   |   |   |   |   |   |   |
-| andrey  |   |   |   |   |   |   |   |   |   |
-| nikita l  |   |   |   |   |   |   |   |   |   |
+| name  | swapnodes  | convexhull | superdigit | magicsquare | numbinarysearch | passwordcracker | prisontransport | substrsear | validbst | RPN |
+|---|---|---|---|---|---|---|---|---|---|---|
+| ilia  |  + |    |    |    |    |    |    |    |    |   |
+| nikita m  | +  | +  | +  |   | +  | 25/35  | +  | +  | +  |   |
+| denis  |   |   |   |   |   |   |   |   |   |   |
+| ostap  | 0/8  | +  | +  | +  | 0/8  |   | 2/8  | +  | 0/8  |   |
+| grigoriy  | +  | +  | +  |   |   |  25/35 |   |  + |  + | +  |
+| yaroslav  |   |   |   |   |   |   |   |   |   |   |
+| dmitriy  |   | + |   |   |   |   |   |   |   |   |
+| andrey  |   |   |   |   |   |   |   |   |   |   |
+| nikita l  |   |   |   |   |   |   |   |   |   |   |
 
 Number of Binary Search Tree
 https://www.hackerrank.com/challenges/number-of-binary-search-tree/submissions
@@ -39,3 +39,10 @@ https://www.hackerrank.com/challenges/swap-nodes/problem?h_r=internal-search
 
 Valid BST
 https://www.hackerrank.com/challenges/valid-bst/problem?h_r=internal-search
+=======
+| name  | swapnodes  |
+|---|---|
+| ilia  |  + |
+|Grisha|  3/8 |   |   |   |
+|   |   |   |   |   |
+>>>>>>> d63fcfe... Add SwapNodes solution by Grisha.
