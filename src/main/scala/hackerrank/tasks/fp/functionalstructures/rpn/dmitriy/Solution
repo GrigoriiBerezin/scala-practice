@@ -1,0 +1,55 @@
+package com.example
+
+import scala.collection.mutable
+
+object PolskaAnnotation extends App {
+
+  def calculate(innerList: String) = {
+    innerList
+      .split(" ")
+      .toList
+      .foldLeft(List.empty[Double])(
+        (list, symbol) =>
+          symbol match {
+            case "+" => list.sum :: Nil
+            case "-" => list.last - list.head :: Nil
+            case "*" => list.last * list.head :: Nil
+            case "/" => list.last / list.head :: Nil
+            case num => num.toDouble :: list
+        }
+      )
+      .head
+  }
+
+  def convertToPostfix(expr: String) = {
+    val ops = "-+/*";
+    val queue = new mutable.StringBuilder()
+    val stack = mutable.Stack[Char]()
+
+    expr.foreach(
+      symbol =>
+        if (ops.contains(symbol)) {
+          while (stack.nonEmpty && ops.contains(symbol)) {
+            queue.append(stack.pop)
+          }
+          stack.push(symbol)
+        } else if (symbol == "(") stack.push(symbol)
+        else if (symbol == ")") {
+          for (cond <- stack
+               if cond != "(") { queue.append(stack.pop()) }
+          stack.pop
+        } else
+          queue.append(symbol)
+    )
+//    while (stack.nonEmpty) queue.append(stack.pop)
+    queue ++ stack
+    queue
+      .filter(x => (x != '(') && (x != ')'))
+      .replaceAllLiterally("  ", " ")
+      .toString
+  }
+
+  val polskaAnnot = convertToPostfix("((33 + 23) - 1) * 5 ")
+  val result = calculate(polskaAnnot)
+  println(result)
+}
