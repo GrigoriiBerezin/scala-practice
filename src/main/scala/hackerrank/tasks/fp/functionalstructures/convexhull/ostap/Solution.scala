@@ -21,7 +21,7 @@ object Solution {
             .readLine()
             .split(delimiter)
             .map(_.trim.toInt)
-        )
+          )
     )
     val pointsList = pointsArr.toList
     val startPoint = findStartPoint(pointsArr.toList)
@@ -32,13 +32,13 @@ object Solution {
   def findStartPoint(points: List[Array[Int]]): (Point, Int) = {
     @scala.annotation.tailrec
     def findLoop(
-      pointsList: List[Array[Int]],
-      point: Array[Int] = Array(),
-      minX: Int = 10001,
-      minY: Int = 10001,
-      pos: Int = 0,
-      startPos: Int = 0
-    ): (Point, Int) = { //вопрос к Никите по возвращению таплов? всегда ли плохо
+                  pointsList: List[Array[Int]],
+                  point: Array[Int] = Array(),
+                  minX: Int = 10001,
+                  minY: Int = 10001,
+                  pos: Int = 0,
+                  startPos: Int = 0
+                ): (Point, Int) = { //вопрос к Никите по возвращению таплов? всегда ли плохо
       pointsList match {
         case Nil => (Point(point(0), point(1)), startPos)
         case head :: tail =>
@@ -126,7 +126,5 @@ object Solution {
       ))
     }
     pathLoop(allPoints.takeRight(startPos), start)
-  }
-}p(allPoints.takeRight(startPos), start)
   }
 }

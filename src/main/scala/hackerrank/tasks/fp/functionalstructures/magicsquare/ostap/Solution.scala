@@ -1,16 +1,37 @@
 package hackerrank.tasks.fp.functionalstructures.magicsquare.ostap
 
+import java.io._
+import java.math._
+import java.security._
+import java.text._
+//import java.util._
+import java.util.concurrent._
+import java.util.function._
+import java.util.regex._
+import java.util.stream._
+
 object Solution {
 
   // Complete the formingMagicSquare function below.
   def formingMagicSquare(s: Array[Array[Int]]): Int = {
 
-    def magisizeQuad(s: Array[Array[Int]],
-                     cost: Int): (Array[Array[Int]], Int) = {
 
-      val columnNums = s(0).size
-      val colRange: Range =
-        0 to columnNums - 1
+    val columnNums = 3
+    val colRange: Range =
+      0 to columnNums - 1
+
+    val value = List(
+      Array(List(2, 7, 6),List(9, 5, 1),List(4, 3, 8)),
+      Array(List(2, 9, 4),List(7, 5, 3),List(6, 1, 8)),
+      Array(List(4, 3, 8),List(9, 5, 1),List(2, 7, 6)),
+      Array(List(4, 9, 2),List(3, 5, 7),List(8, 1, 6)),
+      Array(List(6, 1, 8),List(7, 5, 3),List(2, 9, 4)),
+      Array(List(6, 7, 2),List(1, 5, 9),List(8, 3, 4)),
+      Array(List(8, 1, 6),List(3, 5, 7),List(4, 9, 2)),
+      Array(List(8, 3, 4),List(1, 5, 9),List(6, 7, 2))
+    )
+
+    def isMagic(s: Array[List[Int]]): Boolean = {
 
       val s_vertical = Array.ofDim[Int](columnNums, columnNums)
 
@@ -19,61 +40,34 @@ object Solution {
         y <- colRange
       } yield s_vertical(x)(y) = s(y)(x) //transform matrix
 
-      val horisums: List[Int] = s.map(x => x.sum).toList
-      val vertsums: List[Int] = s_vertical.map(x => x.sum).toList
-      val sumsSet = horisums.concat(vertsums).toSet
-      val sumsList = horisums.concat(vertsums)
-      println(sumsSet)
+      val horisums: Set[Int] = s.map(x => x.sum).toSet
+      val vertsums: Set[Int] = s_vertical.map(x => x.sum).toSet
+      val sumsSet = horisums.concat(vertsums)
 
-      if (sumsSet.size == 1) { println(cost); (s, cost) } else {
-
-        val minSum = sumsSet.min
-        val maxSum = sumsSet.max
-        println(minSum)
-        println(maxSum)
-
-        val normal = sumsList.groupBy(identity).maxBy(_._2.size)._1
-
-        val upper = Math.abs(maxSum - normal)
-        val lower = Math.abs(normal - minSum)
-
-        val diff: (Int, Boolean) = if (upper >= lower) { //Boolean - isUpper
-          (upper, true)
-        } else {
-          (lower, false)
-        }
-        val toReplace = if (diff._2) maxSum else minSum
-
-        val hHas: Int = horisums.indexOf(toReplace)
-        val coordToReplace: (Int, Boolean) = if (hHas == -1) {
-          (vertsums.indexOf(toReplace), false)
-        } else {
-          (hHas, true)
-        }
-
-        if (coordToReplace._2) { //seacrhing what column to replace in this row
-          if (diff._2) { //if diff is upper searching for other upper elements
-            val verIndex = vertsums.indexOf(vertsums.max) //replacing the first match
-            s(coordToReplace._1)(verIndex) = s(coordToReplace._1)(verIndex) - diff._1
-          } else { //if diff is lower searching for other lower elements
-            val verIndex = vertsums.indexOf(vertsums.min) //replacing the first match
-            s(coordToReplace._1)(verIndex) = s(coordToReplace._1)(verIndex) + diff._1
-          }
-        } else {
-          if (diff._2) {
-            val horisIndex = horisums.indexOf(horisums.max)
-            s(coordToReplace._1)(horisIndex) = s(coordToReplace._1)(horisIndex) - diff._1
-          } else {
-            val horisIndex = horisums.indexOf(horisums.min)
-            s(coordToReplace._1)(horisIndex) = s(coordToReplace._1)(horisIndex) + diff._1
-          }
-        }
-        magisizeQuad(s, cost + diff._1)
+      if ((sumsSet.size == 1) && sumsSet.contains(15)) {
+        true
+      } else {
+        false
       }
     }
 
-    val res = magisizeQuad(s, 0)
-    res._2
+    val magics: List[Array[List[Int]]] = for {
+      list <- value
+      if isMagic(list)
+    } yield list
+
+    def getCost(arr: Array[List[Int]]): Int = {
+      val costs = for {
+        x <- colRange
+        y <- colRange
+      } yield Math.abs(arr(x)(y) - s(x)(y))
+      costs.sum
+    }
+
+    val res: List[Int] = for {
+      arr <- magics
+    } yield getCost(arr)
+    res.min
   }
 
   def main(args: Array[String]) {
@@ -94,3 +88,4 @@ object Solution {
     printWriter.close()
   }
 }
+
