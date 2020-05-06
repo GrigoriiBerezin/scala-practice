@@ -8,19 +8,16 @@ object Solution {
     val testsNum = scala.io.StdIn.readLine().toInt
     val numsList: List[Int] =
       (1 to testsNum).map(_ => scala.io.StdIn.readLine().toInt).toList
-
-    println(testsNum)
-    println("====")
-//    numsList.foreach(n => println(n))
     numsList.foreach(n => println(constructLeftTree(n)))
 
   }
 
-  class BinTree()
+  abstract class BinTree{
+    def toString(): String
+  }
   case class NonEmptyTree(left: BinTree, right: BinTree) extends BinTree {
     def isEmpty = false
     override def toString(): String = {
-//      "NonEmptyTree" + "(" + left.toString + ", " + right.toString + ")"
       "NE" + "(" + left.toString + ", " + right.toString + ")"
     }
   }
@@ -30,15 +27,6 @@ object Solution {
     }
     def isEmpty = true
   }
-
-// global loop
-//  def treeGenerate(num: Int) = {
-//
-//    def generator(num: Int, acc: Vector[BinTree]) = {
-////      if(num < )
-//
-//    }
-//  }
 
   def constructLeftTree(numNodes: Int): BinTree = {
     def leftTreeGen(n: Int, tree: NonEmptyTree): BinTree = {
@@ -53,23 +41,12 @@ object Solution {
   def rightiseTree(num: Int, acc: BinTree) = {
 
     // по слоям вниз
-    def iter(curNode: BinTree, acc: BinTree): BinTree = {
-      curNode match {
-        case NonEmptyTree =>
-        case EmptyTree    =>
-      }
-    }
-
-  }
-//    if(num == 0 ){
-//      acc
-//    } else {
-//      acc match {
+//    def iter(curNode: BinTree, acc: BinTree): BinTree = {
+//      curNode match {
+//        case NonEmptyTree =>
+//        case EmptyTree    =>
 //      }
 //    }
 
-//
-//
-//  }
-
+  }
 }
