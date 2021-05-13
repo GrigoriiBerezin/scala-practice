@@ -66,6 +66,22 @@ class SudokuSolverTest extends AnyWordSpec with ScalaCheckDrivenPropertyChecks w
           assert(isFieldValid(filledField))
         }
       }
+      "there is no solution" in {
+        val field =
+          Seq(
+            "57----4--",
+            "---27---1",
+            "2-6-31---",
+            "-25---9-6",
+            "7-49--1--",
+            "-----3--2",
+            "-12394-78",
+            "46852--19",
+            "-----6-54",
+          )
+        val filledField = solver.solve(field)
+        filledField should be (empty)
+      }
     }
   }
 }
