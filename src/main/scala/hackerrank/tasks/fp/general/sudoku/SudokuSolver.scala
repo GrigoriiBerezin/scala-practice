@@ -12,4 +12,6 @@ object SudokuSolver {
   val Grisha: SudokuSolver = new grisha.SudokuSolverImpl
 
   val NikitaM: SudokuSolver = new nikitam.SudokuSolverImpl
+
+  val Nikolai: SudokuSolver = new nikolai.SudokuSolverImpl
 }
