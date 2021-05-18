@@ -1,7 +1,5 @@
 package hackerrank.tasks.fp.general.sudoku
 
-import hackerrank.tasks.fp.general.sudoku.grisha.SudokuSolverImpl
-
 trait SudokuSolver {
   def solve(input: Seq[String]): Seq[String]
 }
@@ -11,5 +9,7 @@ object SudokuSolver {
   // we need it only to make everything compile
   val Dummy: SudokuSolver = identity
 
-  val Grisha: SudokuSolver = new SudokuSolverImpl
+  val Grisha: SudokuSolver = new grisha.SudokuSolverImpl
+
+  val NikitaM: SudokuSolver = new nikitam.SudokuSolverImpl
 }
