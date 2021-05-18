@@ -11,8 +11,15 @@ class SudokuSolverTest extends AnyWordSpec with ScalaCheckDrivenPropertyChecks w
   val targetSum: Int = (1 to 9).sum
   val filledFields: Seq[Seq[String]] = Source.fromResource("sudoku_fields.txt").getLines().grouped(9).toVector
 
-  // TODO set your solver here
-  val solver: SudokuSolver = SudokuSolver.Dummy
+  // TODO add your solver here
+  val solvers: Seq[SudokuSolver] = Seq(SudokuSolver.Grisha)
+
+  def extractAuthorName(solver: SudokuSolver): String = {
+    val paths = solver.getClass.getName.split("\\.")
+    if (paths.length > 1) paths(paths.length - 2)
+    else if (paths.nonEmpty) paths.head
+    else this.getClass.getSimpleName
+  }
 
   def fieldsGen: Gen[Seq[String]] = {
     val filledFieldsGen: Gen[Seq[String]] = Gen.oneOf(filledFields)
@@ -57,30 +64,32 @@ class SudokuSolverTest extends AnyWordSpec with ScalaCheckDrivenPropertyChecks w
   }
 
   "SudokuSolver" should {
-    "solve sudoku" when {
-      "there is a solution" in {
-        import org.scalacheck.Shrink.shrinkAny
-        forAll(fieldsGen, minSuccessful(1024)) { field =>
-          val filledField = solver.solve(field)
-          filledField should not be empty
-          assert(isFieldValid(filledField))
+    solvers.foreach { solver: SudokuSolver =>
+      s"solve sudoku by ${extractAuthorName(solver)}" when {
+        "there is a solution" in {
+          import org.scalacheck.Shrink.shrinkAny
+          forAll(fieldsGen, minSuccessful(1024)) { field =>
+            val filledField = solver.solve(field)
+            filledField should not be empty
+            assert(isFieldValid(filledField))
+          }
         }
-      }
-      "there is no solution" in {
-        val field =
-          Seq(
-            "57----4--",
-            "---27---1",
-            "2-6-31---",
-            "-25---9-6",
-            "7-49--1--",
-            "-----3--2",
-            "-12394-78",
-            "46852--19",
-            "-----6-54",
-          )
-        val filledField = solver.solve(field)
-        filledField should be (empty)
+        "there is no solution" in {
+          val field =
+            Seq(
+              "57----4--",
+              "---27---1",
+              "2-6-31---",
+              "-25---9-6",
+              "7-49--1--",
+              "-----3--2",
+              "-12394-78",
+              "46852--19",
+              "-----6-54",
+            )
+          val filledField = solver.solve(field)
+          filledField should be(empty)
+        }
       }
     }
   }
