@@ -12,7 +12,7 @@ class SudokuSolverTest extends AnyWordSpec with ScalaCheckDrivenPropertyChecks w
   val filledFields: Seq[Seq[String]] = Source.fromResource("sudoku_fields.txt").getLines().grouped(9).toVector
 
   // TODO add your solver here
-  val solvers: Seq[SudokuSolver] = Seq(SudokuSolver.Grisha, SudokuSolver.NikitaM)
+  val solvers: Seq[SudokuSolver] = Seq(SudokuSolver.Grisha, SudokuSolver.NikitaM, SudokuSolver.Nikolai)
 
   def extractAuthorName(solver: SudokuSolver): String = {
     val paths = solver.getClass.getName.split("\\.")
