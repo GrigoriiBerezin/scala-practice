@@ -11,6 +11,12 @@ lazy val root = (project in file("."))
     libraryDependencies += scalaTest % Test,
     libraryDependencies += scalaCheck % Test,
     libraryDependencies += scalaTestPlus % Test,
+    libraryDependencies += zioCore,
+    libraryDependencies += zioStream,
+    libraryDependencies += catsCore,
+    libraryDependencies += scalacheck,
+    libraryDependencies += scalatest,
+//    libraryDependencies += scalatestplus
   )
 
 enablePlugins(JmhPlugin)
